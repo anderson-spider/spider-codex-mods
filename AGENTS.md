@@ -2,6 +2,8 @@
 
 Public marketplace of independent Codex plugins. Documentation, code comments, commits and product messages are in English. Conversations follow the user's language preferences.
 
+All commits must follow Conventional Commits: `<type>[optional scope]: <description>` (for example, `chore: add ai-memory project configuration`). Use the same format for PR titles and squash commit messages.
+
 ## Development
 
 Use Node 24 or newer, `npm ci`, then `npm run check`. This runs lint, typecheck, build, tests and catalog validation. Commit the reproducible plugin `dist/` artifacts so installation needs no package manager or checkout dependencies. CI verifies rebuilding leaves them unchanged. Keep all required runtime dependencies bundled and their license notices included.
