@@ -1,0 +1,20 @@
+{
+  "name": "spider-codex-mods",
+  "interface": {
+    "displayName": "Spider Codex Mods"
+  },
+  "plugins": [
+    {
+      "name": "comfyui-local",
+      "source": {
+        "source": "local",
+        "path": "./plugins/comfyui-local"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

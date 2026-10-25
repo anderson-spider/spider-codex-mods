@@ -1,0 +1,8 @@
+node_modules/
+coverage/
+comfyui-outputs/
+*.tmp
+.DS_Store
+# Runtime bundles are shipped with each plugin, even when a global ignore excludes dist.
+!plugins/*/dist/
+!plugins/*/dist/**
