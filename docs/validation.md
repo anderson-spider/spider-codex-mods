@@ -14,4 +14,6 @@ Generation used an existing self-hosted ComfyUI installation. No models or packs
 
 The desktop plugin picker and activation in a fresh desktop conversation have not been visually verified: the available computer-use tool refuses access to the Codex application. CLI installation and direct calls to the installed MCP do not establish that UI result. Restart the desktop app or open a fresh local chat to verify plugin and skill visibility.
 
-Remote marketplace installation and CI results are recorded after publication.
+The public GitHub marketplace was added using `codex plugin marketplace add anderson-spider/spider-codex-mods`. Reinstalling from that Git source produced a bundle identical to the checked source build. The remotely installed MCP retrieved the completed job and downloaded its image successfully.
+
+Continuous check results: [GitHub Actions](https://github.com/anderson-spider/spider-codex-mods/actions/workflows/ci.yml).
