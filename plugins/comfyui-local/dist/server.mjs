@@ -17078,7 +17078,7 @@ var import_ajv2 = __toESM(require_ajv(), 1);
 var plugin_default = {
   $schema: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   name: "comfyui-local",
-  version: "0.1.0",
+  version: "0.1.1",
   description: "Generate images, video, audio and 3D on your self-hosted ComfyUI, manage workflows and node packs.",
   author: {
     name: "anderson-spider"
@@ -17088,7 +17088,11 @@ var plugin_default = {
   extensions: {
     "com.openai": {
       requires_local_executor: true,
-      onboardingSkill: "./skills/setup/SKILL.md"
+      onboardingSkill: "./skills/setup/SKILL.md",
+      interface: {
+        logo: "./assets/icon.svg",
+        composerIcon: "./assets/icon.svg"
+      }
     }
   }
 };

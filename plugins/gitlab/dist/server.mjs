@@ -18553,7 +18553,7 @@ var handlers = { gitlab_mr: mr, gitlab_mr_comment: comment, gitlab_pipeline: pip
 var ajv = new import_ajv2.default({ strict: false });
 var validators = new Map(tools_default.map((tool) => [tool.name, ajv.compile(tool.inputSchema)]));
 function createServer(loadConfig = readConfig) {
-  const server = new Server({ name: "gitlab", version: "0.1.2" }, { capabilities: { tools: {} } });
+  const server = new Server({ name: "gitlab", version: "0.1.3" }, { capabilities: { tools: {} } });
   server.setRequestHandler(ListToolsRequestSchema, async () => ({ tools: tools_default }));
   server.setRequestHandler(CallToolRequestSchema, async (request) => {
     let token = "";

@@ -16,6 +16,12 @@ for (const entry of catalog.plugins) {
   assert.equal(manifest.name, entry.name)
   assert.match(manifest.version, /^\d+\.\d+\.\d+$/)
   assert.equal(manifest.license, 'MIT')
+  for (const icon of [manifest.extensions['com.openai'].interface.logo, manifest.extensions['com.openai'].interface.composerIcon]) {
+    assert(icon.startsWith('./assets/'))
+    const file = resolve(root, icon)
+    assert(!relative(join(root, 'assets'), file).startsWith('..'))
+    assert((await stat(file)).isFile())
+  }
   const mcp = await json(join(root, 'mcp.json'))
   if (entry.name === 'gitlab') assert.deepEqual(mcp.mcpServers.gitlab.env_vars, ['GITLAB_PLUGINS_TOKENS'])
   for (const server of Object.values(mcp.mcpServers)) {
