@@ -1,0 +1,437 @@
+[
+  {
+    "name": "gitlab_mr",
+    "description": "Merge requests of the repo's GitLab project. list (allProjects: every project; next = more pages), get, status (pipeline, approvals, discussions, conflicts, blockers), diff, commits, create (draft by default), update, approve, unapprove, rebase, merge (only when the user asks; iid and head sha required; refused for drafts, conflicts, blocking discussions, release* or protected targets besides main/master/develop unless allowProtectedTarget). Labels must exist unless createMissingLabels. Writes on MRs by others are refused without allowOthers.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "list",
+            "get",
+            "status",
+            "create",
+            "update",
+            "diff",
+            "commits",
+            "approve",
+            "unapprove",
+            "rebase",
+            "merge"
+          ]
+        },
+        "project": {
+          "type": "string",
+          "description": "Another project path on the same host (group/project)."
+        },
+        "iid": {
+          "type": "integer",
+          "description": "MR !iid. Default: the open MR of the current branch."
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "opened",
+            "merged",
+            "closed",
+            "all"
+          ]
+        },
+        "scope": {
+          "type": "string",
+          "enum": [
+            "created_by_me",
+            "assigned_to_me",
+            "all"
+          ]
+        },
+        "author": {
+          "type": "string",
+          "description": "list: username or @me."
+        },
+        "assignee": {
+          "type": "string"
+        },
+        "reviewer": {
+          "type": "string"
+        },
+        "search": {
+          "type": "string"
+        },
+        "allProjects": {
+          "type": "boolean"
+        },
+        "page": {
+          "type": "integer"
+        },
+        "perPage": {
+          "type": "integer",
+          "description": "Max 100."
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "sourceBranch": {
+          "type": "string"
+        },
+        "targetBranch": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "list filter; create/update: all labels."
+        },
+        "addLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "removeLabels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createMissingLabels": {
+          "type": "boolean"
+        },
+        "assignees": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "@me is the token owner."
+        },
+        "reviewers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "draft": {
+          "type": "boolean"
+        },
+        "stateEvent": {
+          "type": "string",
+          "enum": [
+            "close",
+            "reopen"
+          ]
+        },
+        "removeSourceBranch": {
+          "type": "boolean"
+        },
+        "squash": {
+          "type": "boolean"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "diff: paths with these."
+        },
+        "sha": {
+          "type": "string",
+          "description": "merge: full head sha from status."
+        },
+        "whenPipelineSucceeds": {
+          "type": "boolean",
+          "description": "merge: auto-merge on pipeline success."
+        },
+        "allowOthers": {
+          "type": "boolean",
+          "description": "Write on someone else's MR; only when the user asked."
+        },
+        "allowProtectedTarget": {
+          "type": "boolean"
+        },
+        "workspace": {
+          "type": "string",
+          "description": "Absolute path to the current workspace Git repository."
+        }
+      },
+      "required": [
+        "action",
+        "workspace"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "gitlab_mr_comment",
+    "description": "Discussions of a merge request: list (ids, authors, file/line, resolved; next = more pages), unresolved (open threads: place, author, ask, last reply; up to 2,000 discussions), comment, reply to a discussion, line (a diff comment on path at line, or oldLine for a removed line), edit a note, resolve, unresolve; draft: true does these as private draft notes, drafts lists them, publish posts one (noteId) or all. Writes on MRs by others are refused without allowOthers.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "list",
+            "unresolved",
+            "drafts",
+            "comment",
+            "reply",
+            "line",
+            "edit",
+            "resolve",
+            "unresolve",
+            "publish"
+          ]
+        },
+        "project": {
+          "type": "string",
+          "description": "Another project path on the same host (group/project)."
+        },
+        "iid": {
+          "type": "integer",
+          "description": "MR !iid. Default: the open MR of the current branch."
+        },
+        "body": {
+          "type": "string",
+          "description": "Markdown text."
+        },
+        "discussionId": {
+          "type": "string"
+        },
+        "noteId": {
+          "type": "integer",
+          "description": "edit; publish: one draft, default all."
+        },
+        "draft": {
+          "type": "boolean",
+          "description": "comment, reply, line, edit: a draft note."
+        },
+        "path": {
+          "type": "string",
+          "description": "line: file path as in the diff."
+        },
+        "line": {
+          "type": "integer",
+          "description": "line: new-side line number."
+        },
+        "oldLine": {
+          "type": "integer",
+          "description": "line: old-side line number (both for an unchanged line)."
+        },
+        "unresolvedOnly": {
+          "type": "boolean"
+        },
+        "page": {
+          "type": "integer"
+        },
+        "perPage": {
+          "type": "integer",
+          "description": "Max 100."
+        },
+        "allowOthers": {
+          "type": "boolean",
+          "description": "Write on someone else's MR; only when the user asked."
+        },
+        "workspace": {
+          "type": "string",
+          "description": "Absolute path to the current workspace Git repository."
+        }
+      },
+      "required": [
+        "action",
+        "workspace"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "gitlab_pipeline",
+    "description": "Pipelines of a merge request (iid, or the current branch's MR) or of a ref: list; jobs of a pipeline (default the latest) with downstream pipelines; wait for one to end (at most minutes; failed jobs with log excerpts); run (an MR pipeline, or a ref pipeline with variables); retry or cancel a job or pipeline; play a manual job; artifacts of a job (names, sizes, URL). Read a failed job with gitlab_job_log.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "list",
+            "jobs",
+            "wait",
+            "run",
+            "retry",
+            "cancel",
+            "play",
+            "artifacts"
+          ]
+        },
+        "project": {
+          "type": "string",
+          "description": "Another project path on the same host (group/project)."
+        },
+        "iid": {
+          "type": "integer",
+          "description": "MR !iid. Default: the open MR of the current branch."
+        },
+        "ref": {
+          "type": "string",
+          "description": "Branch or tag instead of an MR."
+        },
+        "pipelineId": {
+          "type": "integer"
+        },
+        "jobId": {
+          "type": "integer"
+        },
+        "failedOnly": {
+          "type": "boolean",
+          "description": "jobs: only failed jobs."
+        },
+        "minutes": {
+          "type": "integer",
+          "description": "wait: at most this long (default 10, max 30)."
+        },
+        "variables": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "run with ref: KEY=value."
+        },
+        "page": {
+          "type": "integer"
+        },
+        "perPage": {
+          "type": "integer",
+          "description": "Max 100."
+        },
+        "allowOthers": {
+          "type": "boolean",
+          "description": "Write on someone else's MR; only when the user asked."
+        },
+        "workspace": {
+          "type": "string",
+          "description": "Absolute path to the current workspace Git repository."
+        }
+      },
+      "required": [
+        "action",
+        "workspace"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "gitlab_job_log",
+    "description": "A CI job's log without terminal codes. errors (default): lines matching error words or pattern, with context, then the last 30 lines; tail: the last lines; full: everything, cut at 60k characters.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "jobId": {
+          "type": "integer"
+        },
+        "project": {
+          "type": "string",
+          "description": "Another project path on the same host (group/project)."
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "errors",
+            "tail",
+            "full"
+          ]
+        },
+        "lines": {
+          "type": "integer",
+          "description": "tail: how many lines (default 100)."
+        },
+        "pattern": {
+          "type": "string",
+          "description": "errors: a case-insensitive regex instead of the error words."
+        },
+        "workspace": {
+          "type": "string",
+          "description": "Absolute path to the current workspace Git repository."
+        }
+      },
+      "required": [
+        "jobId",
+        "workspace"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "gitlab_label",
+    "description": "Labels of the current repo's GitLab project (its own and its groups'): list (name, colour, description; search; next = more pages); create (name, color default #428BCA, description), which answers the existing label when the name is taken.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "list",
+            "create"
+          ]
+        },
+        "project": {
+          "type": "string",
+          "description": "Another project path on the same host (group/project)."
+        },
+        "name": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string",
+          "description": "Hex, like #428BCA."
+        },
+        "description": {
+          "type": "string"
+        },
+        "search": {
+          "type": "string"
+        },
+        "page": {
+          "type": "integer"
+        },
+        "perPage": {
+          "type": "integer",
+          "description": "Max 100."
+        },
+        "workspace": {
+          "type": "string",
+          "description": "Absolute path to the current workspace Git repository."
+        }
+      },
+      "required": [
+        "action",
+        "workspace"
+      ],
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "gitlab_user",
+    "description": "A user of the current repo's GitLab host: the token's own user by default (or @me), else the one with username.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Default: the token owner."
+        },
+        "workspace": {
+          "type": "string",
+          "description": "Absolute path to the current workspace Git repository."
+        }
+      },
+      "required": [
+        "workspace"
+      ],
+      "additionalProperties": false
+    }
+  }
+]

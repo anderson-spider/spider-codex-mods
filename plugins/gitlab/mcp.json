@@ -1,0 +1,16 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "gitlab": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "${PLUGIN_ROOT}/dist/server.mjs"
+      ],
+      "cwd": "${PLUGIN_ROOT}",
+      "env_vars": [
+        "GITLAB_PLUGINS_TOKENS"
+      ]
+    }
+  }
+}
