@@ -23,8 +23,8 @@ for (const entry of catalog.plugins) {
     assert((await stat(file)).isFile())
   }
   const mcp = await json(join(root, 'mcp.json'))
-  if (entry.name === 'gitlab') assert.deepEqual(mcp.mcpServers.gitlab.env_vars, ['GITLAB_PLUGINS_TOKENS'])
   for (const server of Object.values(mcp.mcpServers)) {
+    assert.deepEqual(Object.keys(server).sort(), ['args', 'command', 'cwd', 'type'])
     assert.equal(server.type, 'stdio')
     assert.equal(server.command, 'node')
     assert.equal(server.cwd, '${PLUGIN_ROOT}')

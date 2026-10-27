@@ -23,7 +23,7 @@ const ajv = new Ajv({ strict: false })
 const validators = new Map(tools.map(tool => [tool.name, ajv.compile(tool.inputSchema)]))
 
 export function createServer(loadConfig = readConfig) {
-  const server = new Server({ name: 'gitlab', version: '0.1.3' }, { capabilities: { tools: {} } })
+  const server = new Server({ name: 'gitlab', version: '0.1.4' }, { capabilities: { tools: {} } })
   server.setRequestHandler(ListToolsRequestSchema, async () => ({ tools }))
   server.setRequestHandler(CallToolRequestSchema, async request => {
     let token = ''
