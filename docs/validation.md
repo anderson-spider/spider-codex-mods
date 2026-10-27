@@ -4,7 +4,7 @@
 
 `npm run check` covers lint, TypeScript, compile-time schema assertions, reproducible bundled output, catalog and skill metadata, API behavior with fake servers, configuration isolation, MCP protocol calls, local HTTP/curl transfers, and a standalone stdio server copied outside the checkout without node_modules.
 
-GitHub Actions runs the same checks on Linux and macOS with Node 24 and rejects changes to committed bundles after rebuilding. Automated tests never install or remove packs or restart a real ComfyUI server.
+GitHub Actions runs the same checks on Linux with Node 24 and rejects changes to committed bundles after rebuilding. Automated tests never install or remove packs or restart a real ComfyUI server.
 
 ## Live verification — 2026-10-25
 
