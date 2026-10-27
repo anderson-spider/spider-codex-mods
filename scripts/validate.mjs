@@ -17,6 +17,7 @@ for (const entry of catalog.plugins) {
   assert.match(manifest.version, /^\d+\.\d+\.\d+$/)
   assert.equal(manifest.license, 'MIT')
   const mcp = await json(join(root, 'mcp.json'))
+  if (entry.name === 'gitlab') assert.deepEqual(mcp.mcpServers.gitlab.env_vars, ['GITLAB_PLUGINS_TOKENS'])
   for (const server of Object.values(mcp.mcpServers)) {
     assert.equal(server.type, 'stdio')
     assert.equal(server.command, 'node')

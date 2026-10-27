@@ -7,6 +7,7 @@ A public marketplace of plugins for local Codex sessions, maintained by [anderso
 | Plugin | What it does |
 | --- | --- |
 | [ComfyUI Local](plugins/comfyui-local/README.md) | Generate images, video, audio and 3D on your own ComfyUI; manage jobs, workflows and custom node packs. |
+| [GitLab](plugins/gitlab/README.md) | Work with merge requests, discussions, pipelines, jobs and labels on GitLab. |
 
 ## Install
 
@@ -20,6 +21,8 @@ codex plugin add comfyui-local@spider-codex-mods
 Start a new local chat or restart the desktop app, select the plugin and ask to run its setup skill. Provide your ComfyUI server origin. The configuration stays outside the repository. Then try: “Use ComfyUI Local to generate an illustration of a spider building a small robot.”
 
 The plugin includes its MCP server and dependencies. Users do not run npm install or install a separate MCP service. It uses your existing ComfyUI installation; it does not install models or a server.
+
+Install GitLab with `codex plugin add gitlab@spider-codex-mods` and configure its tokens as described in the [GitLab README](plugins/gitlab/README.md).
 
 This GitHub marketplace is separate from the OpenAI public Plugin Directory. Desktop and CLI compatibility are recorded in [validation notes](docs/validation.md).
 
